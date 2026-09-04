@@ -10,6 +10,10 @@ class DocumentParcelAssociationRequest(BaseModel):
     parcel_id: str | None
 
 
+class DocumentStatusTransitionRequest(BaseModel):
+    status: DocumentStatus
+
+
 class DocumentResponse(BaseModel):
     id: str
     parcel_id: str | None

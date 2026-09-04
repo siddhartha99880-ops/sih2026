@@ -20,6 +20,12 @@ class DocumentRepository:
         session.refresh(document)
         return document
 
+    def update_status(self, session: Session, document: Document, status: DocumentStatus) -> Document:
+        document.status = status
+        session.commit()
+        session.refresh(document)
+        return document
+
     def list(self, session: Session, parcel_id: str | None = None, status: DocumentStatus | None = None) -> list[Document]:
         query = select(Document).order_by(Document.created_at)
         if parcel_id is not None:
