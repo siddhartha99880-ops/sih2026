@@ -43,6 +43,9 @@ class ParcelRepository:
         query = self._filtered_query(search, state, district, tehsil, village, status)
         return session.scalar(select(func.count()).select_from(query.subquery())) or 0
 
+    def list_all(self, session: Session) -> list[Parcel]:
+        return list(session.scalars(select(Parcel).order_by(Parcel.created_at, Parcel.id)))
+
     @staticmethod
     def _filtered_query(
         search: str | None,
