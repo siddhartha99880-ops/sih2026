@@ -41,3 +41,15 @@ The health endpoint is:
 ```text
 GET /api/v1/health
 ```
+
+## Documents
+
+```text
+POST   /api/v1/documents
+GET    /api/v1/documents
+GET    /api/v1/documents/{document_id}
+GET    /api/v1/documents/{document_id}/download
+DELETE /api/v1/documents/{document_id}
+```
+
+Upload uses multipart form data with `file`, optional `parcel_id`, and optional `document_type`. PDFs, JPEGs, and PNGs up to `MAX_DOCUMENT_SIZE_MB` are accepted after extension, declared MIME, and basic file-signature checks. Files are stored locally under `DOCUMENT_STORAGE_PATH` with generated names; absolute paths are never returned. Uploaded records end at `READY_FOR_OCR`. No OCR is performed in this phase.

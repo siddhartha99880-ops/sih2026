@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     area_conflict_percent: float = 10.0
     corridor_buffer_m: float = 0.5
     cors_origins: str = "http://localhost:3000"
+    document_storage_path: str = "data/uploads"
+    max_document_size_mb: int = 10
 
     model_config = SettingsConfigDict(env_file=".env", case_sensitive=False, extra="ignore")
 
