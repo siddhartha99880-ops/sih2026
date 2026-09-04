@@ -1,9 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.db.database import get_db
 from app.repositories.parcel_repository import ParcelRepository
 from app.schemas.parcel import ParcelCreate
+from app.schemas.parcel import ParcelListResponse
 from app.services.parcel_service import ParcelService
 
 
@@ -19,9 +20,19 @@ def create_parcel(data: ParcelCreate, session: Session = Depends(get_db)):
         raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
-@router.get("")
-def list_parcels(session: Session = Depends(get_db)):
-    return [service.to_read(parcel) for parcel in service.repository.list(session)]
+@router.get("", response_model=ParcelListResponse)
+def list_parcels(
+    search: str | None = Query(default=None, max_length=100),
+    state: str | None = Query(default=None, max_length=100),
+    district: str | None = Query(default=None, max_length=100),
+    tehsil: str | None = Query(default=None, max_length=100),
+    village: str | None = Query(default=None, max_length=100),
+    status: str | None = Query(default=None, max_length=50),
+    offset: int = Query(default=0, ge=0),
+    limit: int = Query(default=50, ge=1, le=100),
+    session: Session = Depends(get_db),
+):
+    return service.list(session, search, state, district, tehsil, village, status, offset, limit)
 
 
 @router.get("/{parcel_id}")

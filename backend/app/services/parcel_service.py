@@ -6,6 +6,7 @@ from app.models.parcel import Parcel, ParcelStatus
 from app.repositories.parcel_repository import ParcelRepository
 from app.schemas.parcel import ParcelCreate
 from app.schemas.parcel import ParcelRead
+from app.schemas.parcel import ParcelListResponse
 from app.gis.geometry import geometry_to_geojson
 
 
@@ -34,3 +35,19 @@ class ParcelService:
             srid=parcel.srid, confidence_score=parcel.confidence_score, status=parcel.status,
             verification_status=parcel.verification_status, created_at=parcel.created_at, updated_at=parcel.updated_at,
         )
+
+    def list(
+        self,
+        session: Session,
+        search: str | None = None,
+        state: str | None = None,
+        district: str | None = None,
+        tehsil: str | None = None,
+        village: str | None = None,
+        status: str | None = None,
+        offset: int = 0,
+        limit: int = 50,
+    ) -> ParcelListResponse:
+        parcels = self.repository.list(session, search, state, district, tehsil, village, status, offset, limit)
+        total = self.repository.count(session, search, state, district, tehsil, village, status)
+        return ParcelListResponse(items=[self.to_read(parcel) for parcel in parcels], total=total, offset=offset, limit=limit)

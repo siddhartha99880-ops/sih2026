@@ -37,3 +37,10 @@ class ParcelRead(ParcelBase):
     updated_at: datetime
 
     model_config = {"from_attributes": True}
+
+
+class ParcelListResponse(BaseModel):
+    items: list[ParcelRead]
+    total: int
+    offset: int
+    limit: int
