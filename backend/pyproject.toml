@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "land-intelligence-backend"
+version = "0.1.0"
+description = "FastAPI backend for the Land Intelligence Platform prototype"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115,<1.0",
+  "pydantic-settings>=2.6,<3.0",
+  "uvicorn[standard]>=0.34,<1.0",
+  "shapely>=2.0,<3.0",
+]
+
+[project.optional-dependencies]
+test = ["httpx>=0.28,<1.0", "pytest>=8.0,<9.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

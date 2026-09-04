@@ -1,0 +1,49 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+
+# IDE and OS
+.vscode/
+.idea/
+.DS_Store
+
+# Private/raw data and model weights
+data/raw/
+data/private/
+*.pdf
+*.jpg
+*.jpeg
+*.png
+*.tif
+*.tiff
+*.pt
+*.pth
+*.onnx
+models/
+checkpoints/
+
+# Logs and local databases
+*.log
+*.sqlite
+*.db
+
+# Secrets
+*.pem
+*.key
+credentials.json
+service-account.json

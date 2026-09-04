@@ -1,0 +1,21 @@
+{
+  "parcel_id": "PARCEL-001",
+  "fields": {
+    "khasra_number": "214",
+    "owner_name": "Synthetic Owner",
+    "recorded_area_m2": 1200,
+    "ownership_count": 2,
+    "dispute_indicator": false,
+    "acquisition_stage_delay_days": 0
+  },
+  "parcel": {
+    "type": "Polygon",
+    "srid": 3857,
+    "coordinates": [[[0, 0], [30, 0], [30, 30], [0, 30], [0, 0]]]
+  },
+  "corridor": {
+    "type": "LineString",
+    "srid": 3857,
+    "coordinates": [[-5, 15], [35, 15]]
+  }
+}
