@@ -1,6 +1,9 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 
+from app.core.config import get_settings
+from app.db.database import database_ready
+
 
 router = APIRouter(tags=["health"])
 
@@ -13,4 +16,9 @@ class HealthResponse(BaseModel):
 
 @router.get("/health", response_model=HealthResponse)
 def health() -> HealthResponse:
-    return HealthResponse(status="ok", environment="development", database="not_configured")
+    ready = database_ready()
+    return HealthResponse(
+        status="ok" if ready else "degraded",
+        environment=get_settings().app_env,
+        database="ready" if ready else "unavailable",
+    )
