@@ -6,4 +6,4 @@ def overlap_area(first: BaseGeometry, second: BaseGeometry) -> float:
 
 
 def parcels_overlap(first: BaseGeometry, second: BaseGeometry) -> bool:
-    return first.overlaps(second)
+    return overlap_area(first, second) > 0
