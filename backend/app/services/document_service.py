@@ -13,6 +13,14 @@ from app.storage.local import LocalDocumentStorage
 
 
 class DocumentService:
+    allowed_status_transitions: dict[DocumentStatus, set[DocumentStatus]] = {
+        DocumentStatus.UPLOADED: {DocumentStatus.VALIDATED, DocumentStatus.FAILED},
+        DocumentStatus.VALIDATED: {DocumentStatus.PROCESSING, DocumentStatus.FAILED},
+        DocumentStatus.PROCESSING: {DocumentStatus.READY_FOR_OCR, DocumentStatus.FAILED},
+        DocumentStatus.READY_FOR_OCR: {DocumentStatus.OCR_COMPLETE},
+        DocumentStatus.OCR_COMPLETE: {DocumentStatus.NEEDS_REVIEW, DocumentStatus.FAILED},
+    }
+
     def __init__(self, repository: DocumentRepository | None = None, parcel_repository: ParcelRepository | None = None, storage: LocalDocumentStorage | None = None) -> None:
         settings = get_settings()
         self.repository = repository or DocumentRepository()
@@ -55,6 +63,14 @@ class DocumentService:
         if parcel_id is not None and self.parcel_repository.get(session, parcel_id) is None:
             raise LookupError("parcel not found")
         return self.repository.update_parcel_id(session, document, parcel_id)
+
+    def transition_status(self, session: Session, document_id: str, target_status: DocumentStatus) -> Document:
+        document = self.repository.get(session, document_id)
+        if document is None:
+            raise LookupError("document not found")
+        if target_status not in self.allowed_status_transitions.get(document.status, set()):
+            raise ValueError("invalid document status transition")
+        return self.repository.update_status(session, document, target_status)
 
     def delete(self, session: Session, document: Document) -> None:
         self.repository.delete(session, document)

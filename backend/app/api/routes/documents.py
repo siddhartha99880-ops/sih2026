@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.db.database import get_db
 from app.models.document import DocumentStatus, DocumentType
-from app.schemas.document import DocumentParcelAssociationRequest, DocumentResponse
+from app.schemas.document import DocumentParcelAssociationRequest, DocumentResponse, DocumentStatusTransitionRequest
 from app.services.document_service import DocumentService
 
 
@@ -54,6 +54,21 @@ def associate_document_parcel(
         document = service.associate_parcel(session, document_id, request.parcel_id)
     except LookupError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return service.to_response(document)
+
+
+@router.patch("/{document_id}/status", response_model=DocumentResponse)
+def transition_document_status(
+    document_id: str,
+    request: DocumentStatusTransitionRequest,
+    session: Session = Depends(get_db),
+):
+    try:
+        document = service.transition_status(session, document_id, request.status)
+    except LookupError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
     return service.to_response(document)
 
 
