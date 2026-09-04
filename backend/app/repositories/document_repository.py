@@ -14,6 +14,12 @@ class DocumentRepository:
     def get(self, session: Session, document_id: str) -> Document | None:
         return session.get(Document, document_id)
 
+    def update_parcel_id(self, session: Session, document: Document, parcel_id: str | None) -> Document:
+        document.parcel_id = parcel_id
+        session.commit()
+        session.refresh(document)
+        return document
+
     def list(self, session: Session, parcel_id: str | None = None, status: DocumentStatus | None = None) -> list[Document]:
         query = select(Document).order_by(Document.created_at)
         if parcel_id is not None:

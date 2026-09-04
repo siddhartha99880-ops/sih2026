@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.db.database import get_db
 from app.models.document import DocumentStatus, DocumentType
-from app.schemas.document import DocumentResponse
+from app.schemas.document import DocumentParcelAssociationRequest, DocumentResponse
 from app.services.document_service import DocumentService
 
 
@@ -41,6 +41,19 @@ def get_document(document_id: str, session: Session = Depends(get_db)):
     document = service.repository.get(session, document_id)
     if document is None:
         raise HTTPException(status_code=404, detail="document not found")
+    return service.to_response(document)
+
+
+@router.patch("/{document_id}/parcel", response_model=DocumentResponse)
+def associate_document_parcel(
+    document_id: str,
+    request: DocumentParcelAssociationRequest,
+    session: Session = Depends(get_db),
+):
+    try:
+        document = service.associate_parcel(session, document_id, request.parcel_id)
+    except LookupError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
     return service.to_response(document)
 
 

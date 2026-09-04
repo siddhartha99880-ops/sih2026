@@ -6,6 +6,10 @@ from pydantic import BaseModel, Field
 from app.models.document import DocumentStatus, DocumentType
 
 
+class DocumentParcelAssociationRequest(BaseModel):
+    parcel_id: str | None
+
+
 class DocumentResponse(BaseModel):
     id: str
     parcel_id: str | None
