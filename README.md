@@ -32,7 +32,9 @@ make run-backend
 
 The API is available at `http://localhost:8000` and its OpenAPI document at `http://localhost:8000/docs`.
 
-Start the database with `docker compose up -d postgres`. The health endpoint remains useful without the database during the initial scaffold, but persistence features require PostGIS.
+Start the database with `docker compose up -d postgres`. The Compose file reads `POSTGRES_DB`, `POSTGRES_USER`, and `POSTGRES_PASSWORD` from `.env`; persistence features require PostGIS.
+
+Apply the initial schema with `alembic -c alembic.ini upgrade head`.
 
 ## Development phases
 

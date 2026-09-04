@@ -1,6 +1,6 @@
 # GIS pipeline
 
-The initial analysis contract accepts projected EPSG:3857 coordinates and calculates synthetic demo areas in square metres with Shapely. Production ingestion must validate the source CRS and transform into an appropriate local projected CRS before authoritative PostGIS operations.
+The initial analysis contract accepts projected EPSG:3857 coordinates and calculates synthetic demo areas in square metres with Shapely. Database geometry columns do not force EPSG:3857; each geometry carries an explicit `srid` value. Production ingestion must validate the source CRS and transform into an appropriate local projected CRS before authoritative PostGIS operations.
 
 Validation outcomes are deliberately narrow:
 

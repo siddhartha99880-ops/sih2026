@@ -12,12 +12,15 @@ from app.schemas.analysis import (
     RiskResult,
     ValidationFinding,
 )
+from app.core.config import get_settings
+from app.gis.intersection import corridor_intersection
 
 
 @dataclass(frozen=True)
 class AnalysisService:
-    area_warning_percent: float = 5.0
-    area_conflict_percent: float = 10.0
+    area_warning_percent: float = get_settings().area_warning_percent
+    area_conflict_percent: float = get_settings().area_conflict_percent
+    corridor_buffer_m: float = get_settings().corridor_buffer_m
 
     def analyze(self, request: AnalysisRequest, actor_id: str = "demo-verifier") -> AnalysisResponse:
         polygon = Polygon(request.parcel.coordinates[0])
@@ -72,8 +75,7 @@ class AnalysisService:
         if request.corridor is None:
             return 0.0
         corridor = LineString(request.corridor.coordinates)
-        affected = polygon.intersection(corridor.buffer(0.5))
-        return min(100.0, affected.area / polygon.area * 100) if polygon.area else 0.0
+        return corridor_intersection(polygon, corridor, get_settings().corridor_buffer_m).percentage
 
     @staticmethod
     def _risk(difference_percent: float, corridor_percent: float, request: AnalysisRequest) -> RiskResult:

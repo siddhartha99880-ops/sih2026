@@ -6,8 +6,11 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     app_env: str = "development"
     debug: bool = False
-    database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/land_intelligence"
-    secret_key: str = "replace_me"
+    database_url: str
+    secret_key: str
+    area_warning_percent: float = 5.0
+    area_conflict_percent: float = 10.0
+    corridor_buffer_m: float = 0.5
     cors_origins: str = "http://localhost:3000"
 
     model_config = SettingsConfigDict(env_file=".env", case_sensitive=False, extra="ignore")
