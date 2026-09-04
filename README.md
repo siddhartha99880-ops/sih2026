@@ -36,6 +36,8 @@ Start the database with `docker compose up -d postgres`. The Compose file reads 
 
 Apply the initial schema with `alembic -c alembic.ini upgrade head`.
 
+Documents are stored under the configured `DOCUMENT_STORAGE_PATH` (default `data/uploads`) using generated names and per-document directories. The API stores metadata and a SHA-256 checksum in PostgreSQL, and leaves documents at `READY_FOR_OCR`; OCR is intentionally not implemented yet.
+
 ## Development phases
 
 1. Foundation and API contracts

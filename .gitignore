@@ -25,6 +25,7 @@ dist/
 # Private/raw data and model weights
 data/raw/
 data/private/
+data/uploads/
 *.pdf
 *.jpg
 *.jpeg
