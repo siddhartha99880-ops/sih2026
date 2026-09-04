@@ -48,6 +48,14 @@ class DocumentService:
     def to_response(document: Document) -> DocumentResponse:
         return DocumentResponse.model_validate(document, from_attributes=True)
 
+    def associate_parcel(self, session: Session, document_id: str, parcel_id: str | None) -> Document:
+        document = self.repository.get(session, document_id)
+        if document is None:
+            raise LookupError("document not found")
+        if parcel_id is not None and self.parcel_repository.get(session, parcel_id) is None:
+            raise LookupError("parcel not found")
+        return self.repository.update_parcel_id(session, document, parcel_id)
+
     def delete(self, session: Session, document: Document) -> None:
         self.repository.delete(session, document)
         self.storage.delete(document.storage_path)
