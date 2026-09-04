@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from app.api.routes.health import router as health_router
 from app.api.routes.analysis import router as analysis_router
@@ -8,6 +9,7 @@ from app.api.routes.parcels import router as parcels_router
 from app.api.routes.validation import router as validation_router
 from app.api.routes.documents import router as documents_router
 from app.core.config import get_settings
+from app.core.errors import AppError, AppValidationError, ResourceNotFoundError
 
 
 settings = get_settings()
@@ -16,6 +18,22 @@ app = FastAPI(
     description="Prototype API for human-verified land digitization and infrastructure risk analysis.",
     version="0.1.0",
 )
+
+
+@app.exception_handler(AppError)
+async def handle_app_error(request: Request, exc: AppError) -> JSONResponse:
+    if isinstance(exc, ResourceNotFoundError):
+        status_code = 404
+    elif isinstance(exc, AppValidationError):
+        status_code = 400
+    else:
+        status_code = 500
+    return JSONResponse(
+        status_code=status_code,
+        content={"error": {"code": exc.code, "message": exc.message}},
+    )
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origin_list,
