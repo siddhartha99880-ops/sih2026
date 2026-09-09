@@ -121,10 +121,10 @@ function RoleDutyBanner({
 
   if (role === 'operator') {
     return (
-      <div className="role-duty-banner operator-duty">
+      <div className="role-duty-banner">
         <div className="banner-content">
           <div className="banner-icon-badge">
-            <FileCheck2 size={22} className="text-emerald-300" />
+            <FileCheck2 size={20} />
           </div>
           <div className="banner-text">
             <strong>Operator Intake Desk · Active Jurisdiction</strong>
@@ -143,10 +143,10 @@ function RoleDutyBanner({
 
   if (role === 'tehsildar') {
     return (
-      <div className="role-duty-banner tehsildar-duty">
+      <div className="role-duty-banner">
         <div className="banner-content">
           <div className="banner-icon-badge">
-            <ShieldCheck size={22} className="text-amber-300" />
+            <ShieldCheck size={20} />
           </div>
           <div className="banner-text">
             <strong>Revenue Magistrate Desk · Mulshi Sub-Division</strong>
@@ -164,10 +164,10 @@ function RoleDutyBanner({
   }
 
   return (
-    <div className="role-duty-banner director-duty">
+    <div className="role-duty-banner">
       <div className="banner-content">
         <div className="banner-icon-badge">
-          <Building2 size={22} className="text-indigo-300" />
+          <Building2 size={20} />
         </div>
         <div className="banner-text">
           <strong>Executive Command · National Cadastral Board</strong>
@@ -341,7 +341,7 @@ function Home({
       {/* Stat Grid */}
       <div className="stat-grid">
         <button className="stat-card" onClick={() => onNavigate('documents')}>
-          <span className="stat-icon blue">
+          <span className="stat-icon">
             <FileCheck2 size={20} />
           </span>
           <span className="stat-label">Document Register</span>
@@ -351,7 +351,7 @@ function Home({
         </button>
 
         <button className="stat-card" onClick={() => onNavigate('parcels')}>
-          <span className="stat-icon green">
+          <span className="stat-icon">
             <MapPinned size={20} />
           </span>
           <span className="stat-label">Total Cadastral Parcels</span>
@@ -361,7 +361,7 @@ function Home({
         </button>
 
         <button className="stat-card" onClick={() => onNavigate('validation')}>
-          <span className="stat-icon amber">
+          <span className="stat-icon">
             <ShieldCheck size={20} />
           </span>
           <span className="stat-label">Spatial Review Queue</span>
@@ -371,7 +371,7 @@ function Home({
         </button>
 
         <button className="stat-card" onClick={() => onNavigate('infrastructure')}>
-          <span className="stat-icon slate">
+          <span className="stat-icon">
             <Building2 size={20} />
           </span>
           <span className="stat-label">Corridor Projects</span>
@@ -423,7 +423,7 @@ function Home({
               <span className="eyebrow">Verification Protocol</span>
               <h2>Determinism Over Speculation</h2>
             </div>
-            <ShieldCheck size={20} className="text-emerald-400" />
+            <ShieldCheck size={20} />
           </div>
 
           <p>
@@ -642,7 +642,7 @@ function Documents({
                     <td>{document.document_type.replaceAll('_', ' ')}</td>
                     <td>
                       {document.parcel_id ? (
-                        <span className="mono text-teal-300">{document.parcel_id}</span>
+                        <span className="mono">{document.parcel_id}</span>
                       ) : (
                         <span className="muted">Unassigned</span>
                       )}
@@ -1043,7 +1043,7 @@ function Validation({
             </>
           ) : (
             <section className="selection-empty compact">
-              <ShieldCheck size={28} className="text-teal-400" />
+              <ShieldCheck size={28} />
               <h2>Parcel Ready for Spatial Validation</h2>
               <p>
                 Click "Run GIS Checks" in the top-right header to initiate deterministic geometry
@@ -1096,10 +1096,10 @@ function Infrastructure({
           </p>
           <div className="future-points">
             <span>
-              <CheckCircle2 size={15} className="text-blue-400" /> Linear Coordinate LineStrings
+              <CheckCircle2 size={15} /> Linear Coordinate LineStrings
             </span>
             <span>
-              <CheckCircle2 size={15} className="text-blue-400" /> Authorized Corridor Register
+              <CheckCircle2 size={15} /> Authorized Corridor Register
             </span>
             <span>
               <span className="pending-dot" /> Predictive Risk Intelligence Layer Pending

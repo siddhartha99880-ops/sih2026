@@ -39,19 +39,19 @@ export function Layout({
 
   const roleStyles = {
     operator: {
-      badgeBg: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
-      avatarBg: 'bg-emerald-600 text-white',
-      accentGlow: 'glow-emerald',
+      badgeBg: 'role-tag-mono',
+      avatarBg: 'role-avatar-mono',
+      accentGlow: 'glow-white',
     },
     tehsildar: {
-      badgeBg: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
-      avatarBg: 'bg-amber-600 text-white',
-      accentGlow: 'glow-amber',
+      badgeBg: 'role-tag-mono',
+      avatarBg: 'role-avatar-mono',
+      accentGlow: 'glow-white',
     },
     director: {
-      badgeBg: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40',
-      avatarBg: 'bg-indigo-600 text-white',
-      accentGlow: 'glow-indigo',
+      badgeBg: 'role-tag-mono',
+      avatarBg: 'role-avatar-mono',
+      accentGlow: 'glow-white',
     },
   }[role]
 

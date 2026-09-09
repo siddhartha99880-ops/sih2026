@@ -88,14 +88,14 @@ export function LoginModal() {
           <div className="role-grid">
             {/* Operator Card */}
             <div
-              className={`role-card operator-role ${currentRole === 'operator' ? 'current-active' : ''}`}
+              className={`role-card ${currentRole === 'operator' ? 'current-active' : ''}`}
               onClick={() => loginDemoRole('operator')}
             >
-              <div className="role-icon-box bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+              <div className="role-icon-box">
                 <FileCheck2 size={22} />
               </div>
               <div className="role-content">
-                <div className="role-badge-pill text-emerald-300 bg-emerald-950/60 border border-emerald-500/30">
+                <div className="role-badge-pill">
                   Intake Desk
                 </div>
                 <h3>{PRESET_ROLES.operator.name}</h3>
@@ -104,21 +104,21 @@ export function LoginModal() {
                   Document intake, deed uploads, OCR quality control, and khasra-parcel association.
                 </p>
               </div>
-              <button className="role-login-btn text-emerald-300 border-emerald-500/40 hover:bg-emerald-500/20">
-                Switch to Operator &rarr;
+              <button className="role-login-btn">
+                Select &rarr;
               </button>
             </div>
 
             {/* Tehsildar Card */}
             <div
-              className={`role-card tehsildar-role ${currentRole === 'tehsildar' ? 'current-active' : ''}`}
+              className={`role-card ${currentRole === 'tehsildar' ? 'current-active' : ''}`}
               onClick={() => loginDemoRole('tehsildar')}
             >
-              <div className="role-icon-box bg-amber-500/15 text-amber-400 border border-amber-500/30">
+              <div className="role-icon-box">
                 <ShieldCheck size={22} />
               </div>
               <div className="role-content">
-                <div className="role-badge-pill text-amber-300 bg-amber-950/60 border border-amber-500/30">
+                <div className="role-badge-pill">
                   Revenue Magistrate
                 </div>
                 <h3>{PRESET_ROLES.tehsildar.name}</h3>
@@ -127,21 +127,21 @@ export function LoginModal() {
                   Authoritative cadastral register, deterministic GIS validation, area verification & boundary overlap adjudication.
                 </p>
               </div>
-              <button className="role-login-btn text-amber-300 border-amber-500/40 hover:bg-amber-500/20">
-                Switch to Tehsildar &rarr;
+              <button className="role-login-btn">
+                Select &rarr;
               </button>
             </div>
 
             {/* Director Card */}
             <div
-              className={`role-card director-role ${currentRole === 'director' ? 'current-active' : ''}`}
+              className={`role-card ${currentRole === 'director' ? 'current-active' : ''}`}
               onClick={() => loginDemoRole('director')}
             >
-              <div className="role-icon-box bg-indigo-500/15 text-indigo-400 border border-indigo-500/30">
+              <div className="role-icon-box">
                 <Building2 size={22} />
               </div>
               <div className="role-content">
-                <div className="role-badge-pill text-indigo-300 bg-indigo-950/60 border border-indigo-500/30">
+                <div className="role-badge-pill">
                   Commissioner
                 </div>
                 <h3>{PRESET_ROLES.director.name}</h3>
@@ -150,8 +150,8 @@ export function LoginModal() {
                   Executive infrastructure risk oversight, corridor acquisition alerts, high-level project register & audit hash logs.
                 </p>
               </div>
-              <button className="role-login-btn text-indigo-300 border-indigo-500/40 hover:bg-indigo-500/20">
-                Switch to Director &rarr;
+              <button className="role-login-btn">
+                Select &rarr;
               </button>
             </div>
           </div>
