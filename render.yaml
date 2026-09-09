@@ -1,0 +1,39 @@
+﻿services:
+  # 1. Frontend Web App (Static Site)
+  - type: web
+    name: sih2026-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: sih2026-backend
+          property: host
+
+  # 2. Backend API Service (Optional FastAPI Web Service)
+  - type: web
+    name: sih2026-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -e .
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        value: postgresql+psycopg://dummy:dummy@localhost:5432/dummy
+      - key: CORS_ORIGINS
+        value: https://heisenworks.work.gd,http://heisenworks.work.gd
