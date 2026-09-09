@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react'
+import React, { useState } from 'react'
 import {
   Building2,
   CheckCircle2,
@@ -7,7 +7,6 @@ import {
   Lock,
   Mail,
   ShieldCheck,
-  Sparkles,
   UserCheck,
   X,
 } from 'lucide-react'
@@ -49,15 +48,15 @@ export function LoginModal() {
 
   return (
     <div className="glass-modal-backdrop" onClick={closeLoginModal}>
-      <div className="glass-modal animate-scale-in" onClick={e => e.stopPropagation()}>
+      <div className="glass-modal" onClick={e => e.stopPropagation()}>
         {/* Header */}
         <div className="glass-modal-header">
           <div className="flex items-center gap-3">
             <div className="brand-mark-glass">भू</div>
             <div>
-              <div className="eyebrow flex items-center gap-1.5 text-teal-300">
-                <Sparkles size={13} className="text-amber-400 animate-spin-slow" />
-                <span>Government Authentication Portal</span>
+              <div className="eyebrow flex items-center gap-1.5 text-blue-400">
+                <ShieldCheck size={14} />
+                <span>Authoritative Cadastre Portal</span>
               </div>
               <h2 className="modal-title">Select Operational Role</h2>
             </div>

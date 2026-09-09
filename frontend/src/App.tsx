@@ -12,7 +12,6 @@ import {
   MapPinned,
   RefreshCw,
   Search,
-  ShieldAlert,
   ShieldCheck,
   UploadCloud,
   X,
@@ -1087,35 +1086,25 @@ function Infrastructure({
 
       {error && <ErrorMessage message={error} />}
 
-      {/* Orbit Graphic Hero */}
+      {/* Executive Corridor Overview */}
       <section className="future-hero">
         <div className="future-hero-copy">
-          <span className="eyebrow">National Land Intelligence</span>
-          <h2>Macro Alignment & Right-of-Way Dispute Intelligence</h2>
+          <span className="eyebrow">National Infrastructure Directorate</span>
+          <h2>Macro Alignment & Right-of-Way Protection</h2>
           <p>
-            Public corridors require authoritative overlay against digitized village cadastres.
-            BhuDhrishti enables proactive corridor conflict resolution without opaque estimation.
+            Authoritative overlay of national transit, pipeline, and highway corridors against local village cadastral records. BhuDhrishti enables proactive spatial conflict verification and clear land rights management.
           </p>
           <div className="future-points">
             <span>
-              <CheckCircle2 size={15} className="text-teal-300" /> Authorized Corridor Register
+              <CheckCircle2 size={15} className="text-blue-400" /> Linear Coordinate LineStrings
             </span>
             <span>
-              <CheckCircle2 size={15} className="text-teal-300" /> Linear Coordinate LineStrings
+              <CheckCircle2 size={15} className="text-blue-400" /> Authorized Corridor Register
             </span>
             <span>
               <span className="pending-dot" /> Predictive Risk Intelligence Layer Pending
             </span>
           </div>
-        </div>
-
-        <div className="future-orbit">
-          <div className="orbit-center">
-            <ShieldAlert size={20} />
-            <span>RISK</span>
-          </div>
-          <div className="orbit-ring ring-one" />
-          <div className="orbit-ring ring-two" />
         </div>
       </section>
 

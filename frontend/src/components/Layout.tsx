@@ -9,7 +9,6 @@ import {
   LogOut,
   Menu,
   ShieldCheck,
-  Sparkles,
   UserCheck,
   X,
 } from 'lucide-react'
@@ -58,10 +57,9 @@ export function Layout({
 
   return (
     <div className="app-shell glass-canvas">
-      {/* Dynamic ambient optical glass lighting orbs */}
+      {/* Subtle iOS ambient glass lighting */}
       <div className="ambient-orb orb-primary" />
       <div className="ambient-orb orb-secondary" />
-      <div className="ambient-orb orb-tertiary" />
 
       {/* Login Modal */}
       <LoginModal />
@@ -196,7 +194,7 @@ export function Layout({
               className={`topbar-role-button ${roleStyles.badgeBg}`}
               onClick={openLoginModal}
             >
-              <Sparkles size={13} className="animate-spin-slow" />
+              <UserCheck size={13} />
               <span>{user.designation.split('/')[0].trim()}</span>
               <span className="switch-hint">Switch</span>
             </button>
