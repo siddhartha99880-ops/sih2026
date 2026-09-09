@@ -1,4 +1,4 @@
-﻿import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -101,6 +101,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [role])
 
   useEffect(() => {
+    if (!auth) return
     const unsubscribe = onAuthStateChanged(auth, fbUser => {
       setFirebaseUser(fbUser)
       if (fbUser && fbUser.email) {
@@ -125,6 +126,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const loginWithEmail = async (email: string, pass: string, chosenRole: UserRole = 'operator') => {
+    if (!auth) {
+      setUser({
+        ...PRESET_ROLES[chosenRole],
+        email,
+        name: email.split('@')[0].replace('.', ' ').toUpperCase(),
+      })
+      setRoleState(chosenRole)
+      setIsLoginModalOpen(false)
+      return
+    }
     const cred = await signInWithEmailAndPassword(auth, email, pass)
     setFirebaseUser(cred.user)
     setRoleState(chosenRole)
@@ -132,6 +143,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const signupWithEmail = async (email: string, pass: string, chosenRole: UserRole = 'operator') => {
+    if (!auth) {
+      setUser({
+        ...PRESET_ROLES[chosenRole],
+        email,
+        name: email.split('@')[0].replace('.', ' ').toUpperCase(),
+      })
+      setRoleState(chosenRole)
+      setIsLoginModalOpen(false)
+      return
+    }
     const cred = await createUserWithEmailAndPassword(auth, email, pass)
     setFirebaseUser(cred.user)
     setRoleState(chosenRole)
@@ -139,12 +160,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const logout = async () => {
-    try {
-      await signOut(auth)
-    } catch {
-      // ignore
+    if (auth) {
+      try {
+        await signOut(auth)
+      } catch {
+        // ignore
+      }
     }
     setFirebaseUser(null)
+    setRoleState('tehsildar')
   }
 
   return (
